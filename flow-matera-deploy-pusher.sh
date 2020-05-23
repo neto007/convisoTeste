@@ -1,6 +1,6 @@
 #!/bin/bash
-CURRENT_TAG=$(git ls-remote -q  --tags | awk '{print $2}' | grep -E 'conviso-[0-9]' | sed 's@refs/tags/@@'| tail -n1)
-PREVIOUS_TAG=$(git ls-remote -q  --tags | awk '{print $2}'  | grep -E 'conviso-[0-9]' | sed 's@refs/tags/@@' | tail -n2 | head -n1)
+CURRENT_TAG=$(git ls-remote -q  --tags | awk '{print $2}' | grep -E 'conviso-[0-9]*' | sort -V |sed 's@refs/tags/@@' | tail -n1)
+PREVIOUS_TAG=$(git ls-remote -q  --tags | awk '{print $2}' | grep -E 'conviso-[0-9]*' | sort -V |sed 's@refs/tags/@@' | tail -n2 | head -n1)
 CHANGED_FILES=$(git diff --name-only ${CURRENT_TAG} ${PREVIOUS_TAG} | tr '\n' ',')
 
 echo $CURRENT_TAG
